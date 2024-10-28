@@ -14,52 +14,98 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@500&display=swap" rel="stylesheet">
 </head>
 <style>
-  .label__form{
+  .label__form {
     color: rgba(17, 3, 214, 0.658);
     font-weight: 900;
   }
-  .input__form{
+
+  .input__form {
     width: 100%;
     padding: 8px;
     border: 0.1px solid rgba(163, 163, 163, 0.171);
     /* border-radius: 2px; */
     outline: none;
   }
-  .input__form:focus{
+
+  .input__form:focus {
     outline: none;
     border: 0.5px solid rgba(19, 3, 255, 0.432);
     color: rgba(19, 3, 255, 0.432);
     -webkit-box-shadow: none;
-  box-shadow: none;
-}
+    box-shadow: none;
+  }
+  .iframerss{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+  }
 </style>
+<style>
+  .swal-modal {
+    width: 350px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+
+  .swal-title {
+    margin-top: -20px;
+    padding: 0;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .swal-text {
+    margin-top: -15px;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  .swal-button {
+    margin: 0;
+    margin-top: -20px;
+    padding: 4px 25px 5px 25px;
+    position: relative;
+  }
+</style>
+
 
 <body>
 
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4 p-5">
+        <form action="" method="post" id="form_post">
+          <div class="form-group">
+            <label for="name" class="label__form">Name</label>
+            <input type="text" name="name" class="input__form name" id="">
+          </div>
+          <div class="form-group">
+            <label for="name" class="label__form">Gmail</label>
+            <input type="email" name="gmail" class="input__form gmail" id="">
+          </div>
+          <div class="form-group">
+            <label for="name" class="label__form">Tel</label>
+            <input type="tel" name="tel" class="input__form tel" id="">
+          </div>
+  
+          <div class="form-group">
+            <button type="submit" id="form_submit" class="btn btn-outline-info">Save</button>
+          </div>
+        </form>
+       
+      </div>
 
-<div class="row">
-  <div class="col-sm-4"></div>
-  <div class="col-sm-3">
-    <form action="https://script.google.com/macros/s/AKfycbzm3WzgbSn_l3KCGXGpDAxivIsRwIGcHIt3gPm4z1G2dlxlEQ-xrVvc2jOJzbF95cLcJw/exec" method="post">
-      <div class="form-group">
-        <label for="name" class="label__form">Name</label>
-        <input type="text" name="name" class="input__form" id="">
+      <div class="col-sm-8">
+        <iframe class="iframerss" src="https://docs.google.com/spreadsheets/d/1AtNFvyGYS-sZMka3soAcnXWP7o6Tv5Yq3neALghKz3E/edit?gid=0#gid=0"></iframe>
       </div>
-      <div class="form-group">
-        <label for="name" class="label__form">Gmail</label>
-        <input type="email" name="gmail" class="input__form" id="">
-      </div>
-      <div class="form-group">
-        <label for="name" class="label__form">Tel</label>
-        <input type="tel" name="tel" class="input__form" id="">
-      </div>
-
-      <div class="form-group">
-        <button type="submit" class="btn btn-outline-info">Save</button>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+
+
+  
 
 
 </body>
@@ -68,5 +114,56 @@
 <script src="./tools/jquery-3.7.1.js"></script>
 <script src="./tools/script.js"></script>
 
+
+<script>
+  $(document).ready(function () {
+    $("#form_submit").click(function () {
+      var formData = new FormData($('#form_post')[0]);
+      $.ajax({
+        url: 'https://script.google.com/macros/s/AKfycbzm3WzgbSn_l3KCGXGpDAxivIsRwIGcHIt3gPm4z1G2dlxlEQ-xrVvc2jOJzbF95cLcJw/exec',
+        data: formData,
+        async: false,
+        contentType: false,
+        processData: false,
+        cache: false,
+        type: 'POST',
+        success: function (data) {
+          $('#exampleModals').modal('show');
+          window.setTimeout(function () {
+            location.reload();
+          },10);
+        },
+      });
+      return false;
+    });
+  });
+
+
+  // function myFunction() {
+  //   swal({
+  //     title: '[ ບັນທຶກສຳເລັດ ]',
+  //     icon: 'success',
+  //     buttons: false,
+  //   });
+  //   window.setTimeout(function () {
+  //     location.reload();
+  //   }, 1000);
+  // }
+
+
+
+  // $(document).ready(function () {
+  //   $("#form_submit").click(function (e) {
+  //     let name = $('.name').val();
+  //     let gmail = $('.gmail').val();
+  //     let tel = $('.tel').val();
+  //     $.post("search.php", {
+  //       search: search
+  //     }, function (output) {
+  //       $("#search_place").html(output);
+  //     })
+  //   });
+  // });
+</script>
 
 </html>
